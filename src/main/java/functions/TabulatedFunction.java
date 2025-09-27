@@ -1,7 +1,6 @@
 package functions;
 
 public interface TabulatedFunction extends MathFunction {
-
     int getCount();                       // Получение количества табулированных значений
 
     double getX(int index);               // Получение значения аргумента x по номеру индекса
