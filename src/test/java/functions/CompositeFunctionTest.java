@@ -46,7 +46,7 @@ class CompositeFunctionTest {
         MathFunction f5 = new CompositeFunction(log, log);
         MathFunction f6 = new CompositeFunction(f5, log);
         MathFunction f7 = new CompositeFunction(f6, sin);
-        MathFunction f8 = new CompositeFunction(f7, sqr); // sin(ln(ln(ln(x))))²
+        MathFunction f8 = new CompositeFunction(f7, sqr); // (sin(ln(ln(ln(x)))))²
         assertEquals(0.492243, f8.apply(x), EPSILON);
     }
 }
