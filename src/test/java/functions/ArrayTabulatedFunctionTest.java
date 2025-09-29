@@ -43,11 +43,6 @@ class ArrayTabulatedFunctionTest {
     }
 
     @Test
-    void remove() {
-
-    }
-
-    @Test
     void floorIndexOfX() {
         double[] xVal = {3, 4, 5};
         double[] yVal = {20, 21, 22};
