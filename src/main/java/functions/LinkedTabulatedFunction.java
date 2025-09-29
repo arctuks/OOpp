@@ -107,7 +107,7 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
         double y0 = getY(0);
         double y1 = getY(1);
 
-        return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+        return y0 + ((y1 - y0) / (x1 - x0)) * (x - x0);
     }
 
     protected double extrapolateRight(double x) {
@@ -161,17 +161,18 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
     }
 
     private Node getNode(int index) {
-        Node temp = head;
-        if (index >= count/2) {
-            index = count - index;
-
-            while (index-- > 0) {
+        Node temp;
+        if (index <= count / 2) {
+            temp = head;
+            for (int i = 0; i < index; i++) {
+                temp = temp.next;
+            }
+        } else {
+            temp = head;
+            for (int i = 0; i < count - index; i++) {
                 temp = temp.prev;
             }
-            return temp;
         }
-
-        while (--index > 0) temp = temp.next;
         return temp;
     }
 

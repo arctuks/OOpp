@@ -44,7 +44,12 @@ class LinkedTabulatedFunctionTest {
 
     @Test
     void remove() {
+        MathFunction sqr = new SqrFunction();
+        LinkedTabulatedFunction function = new LinkedTabulatedFunction(sqr, 1, 10, 10);
 
+        assertEquals(16, function.getY(3));
+        function.remove(3);
+        assertEquals(25, function.getY(3));
     }
 
     @Test
