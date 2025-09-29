@@ -7,6 +7,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class ArrayTabulatedFunctionTest {
 
     @Test
+    void insert() {
+        MathFunction sqr = new SqrFunction();
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(sqr, 1, 10, 10);
+
+        function.insert(6, 40);
+        assertEquals(40, function.getY(5));
+
+        function.insert(6.5, 42.25);
+        assertEquals(42.25, function.getY(6));
+        assertEquals(100, function.getY(10));
+    }
+
+    @Test
     void extrapolateLeft() {
         MathFunction sqr = new SqrFunction();
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(sqr, 1, 10, 10);

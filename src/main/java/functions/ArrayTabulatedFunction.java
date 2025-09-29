@@ -68,7 +68,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public int indexOfX(double x) {
-        for (int i = 0; i < count + 1; i++) {
+        for (int i = 0; i < count; i++) {
             if (x == xValues[i]) {
                 return i;
             }
@@ -140,9 +140,31 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         return interpolate(x, x0, x1, y0, y1);
     }
 
-    @Override
     public void insert(double x, double y) {
+        int index = indexOfX(x);
 
+        if (index != -1) {
+            setY(index, y);
+            return;
+        }
+
+        index = floorIndexOfX(x) + 1;
+
+        double[] newX = new double[count + 1];
+        double[] newY = new double[count + 1];
+
+        System.arraycopy(xValues, 0, newX, 0, index);
+        System.arraycopy(yValues, 0, newY, 0, index);
+
+        newX[index] = x;
+        newY[index] = y;
+
+        System.arraycopy(xValues, index, newX, index + 1, count - index);
+        System.arraycopy(yValues, index, newY, index + 1, count - index);
+
+        xValues = newX;
+        yValues = newY;
+        count++;
     }
 
     @Override
