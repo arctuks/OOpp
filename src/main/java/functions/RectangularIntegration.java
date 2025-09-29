@@ -10,8 +10,6 @@ public class RectangularIntegration {
         func = f;
         A = a;
         B = b;
-
-
     }
 
     double apply (int n){
