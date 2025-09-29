@@ -1,6 +1,6 @@
 package functions;
 
-public abstract class AbstractTabulatedFunction implements TabulatedFunction{
+public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
     protected abstract int floorIndexOfX(double x);
 
@@ -10,22 +10,22 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction{
 
     protected abstract double interpolate(double x, int floorIndex);
 
-    protected double interpolate(double x, double leftX, double rightX, double leftY, double rightY){
-        return leftY +((rightY - leftY)/(rightX - leftX))* (x - leftX);
-    };
+    protected double interpolate(double x, double leftX, double rightX, double leftY, double rightY) {
+        return leftY + ((rightY - leftY) / (rightX - leftX)) * (x - leftX);
+    }
 
-    public double apply(double x){
+    public double apply(double x) {
 
-        if (x < leftBound()){
+        if (x < leftBound()) {
             return extrapolateLeft(x);
         }
-        if (x > rightBound()){
+        if (x > rightBound()) {
             return extrapolateRight(x);
         }
 
         int index = indexOfX(x);
 
-        if (index != -1){
+        if (index != -1) {
             return getY(index);
         }
 
