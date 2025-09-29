@@ -110,7 +110,6 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
         return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
     }
 
-
     protected double extrapolateRight(double x) {
         if (count == 1) return getY(0);
 
