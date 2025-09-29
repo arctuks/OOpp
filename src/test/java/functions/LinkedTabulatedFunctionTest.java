@@ -12,6 +12,7 @@ class LinkedTabulatedFunctionTest {
         LinkedTabulatedFunction function = new LinkedTabulatedFunction(sqr, 1, 10, 10);
         assertEquals(2.5, function.extrapolateLeft(1.5));
 
+
         double[] x1 = {1};
         double[] y1 = {10};
         LinkedTabulatedFunction function2 = new LinkedTabulatedFunction(x1, y1);
