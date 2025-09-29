@@ -1,0 +1,140 @@
+package functions;
+import java.util.Arrays;
+
+public abstract class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable,Removable{
+    private double[] xValues;
+    private double[] yValues;
+    private int count;
+
+    ArrayTabulatedFunction(double[] xValues, double[] yValues ){
+        count = xValues.length;
+        this.xValues = Arrays.copyOf(xValues, count);
+        this.yValues = Arrays.copyOf(yValues, count);
+    }
+
+    ArrayTabulatedFunction( MathFunction source, double xFrom, double xTo, int count){
+        if(xFrom > xTo){
+            double temp = xFrom;
+            xFrom = xTo;
+            xTo = temp;
+        }
+
+        if (xFrom == xTo){
+            for (int i = 0; i < count + 1; i++){
+                xValues[i] = xFrom;
+                yValues[i] = source.apply(xFrom);
+            }
+        }else{
+            this.xValues[0] = xFrom;
+            this.xValues[count] = xTo;
+            this.yValues[0] = source.apply(xFrom);
+            this.yValues[count] = source.apply(xTo);
+
+            double lengthXY = xTo - xFrom;
+            double step = lengthXY / (count - 1);
+
+            for (int i = 1; i < count; i ++){
+                xValues[i] = xFrom+i*step;
+                yValues[i] = source.apply(xFrom+i*step);
+            }
+        }
+
+    }
+
+    public int getCount(){
+        return count;
+    }
+
+    public double getX(int indexX){
+        return xValues[indexX];
+    }
+
+    public double getY(int indexY){
+        return yValues[indexY];
+    }
+
+    public void setY(int index, double value){
+        this.yValues[index] = value;
+    }
+
+    public double leftBound(){
+        return getX(0);
+    }
+
+    public double rightBound(){
+        return getX(count);
+    }
+
+    public int indexOfX(double x){
+        for (int i = 0; i < count + 1; i++){
+            if (x == xValues[i]){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int indexOfY(double y){
+        for (int i = 0; i < count + 1; i++){
+            if (y == yValues[i]){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int floorIndexOfX(double x){
+        if (x < xValues[0]){
+            return 0;
+        }
+        if (x > xValues[count]){
+            return count;
+        }
+
+        for (int i = 0; i < count + 1; i++){
+            if (x == xValues[i]){
+                return i;
+            }
+            if (x > xValues[i]){
+                return i - 1;
+            }
+        }
+        return count;
+    }
+
+    protected double extrapolateLeft(double x) {
+        if (count == 1) return getY(0);
+
+        double x0 = getX(0);
+        double x1 = getX(1);
+        double y0 = getY(0);
+        double y1 = getY(1);
+
+        return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+    }
+
+
+    protected double extrapolateRight(double x) {
+        if (count == 1) return getY(0);
+
+        double x0 = getX(count - 2);
+        double x1 = getX(count - 1);
+        double y0 = getY(count - 2);
+        double y1 = getY(count - 1);
+
+        return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
+    }
+
+    protected double interpolate(double x, int floorIndex) {
+        if (count == 1) {
+            return getY(0);
+        }
+
+        double x0 = getX(floorIndex);
+        double x1 = getX(floorIndex + 1);
+        double y0 = getY(floorIndex);
+        double y1 = getY(floorIndex + 1);
+
+        return interpolate(x, x0, x1, y0, y1);
+    }
+}
