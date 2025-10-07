@@ -9,6 +9,7 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
     LinkedTabulatedFunction(double[] xValues, double[] yValues) {
         while (count < xValues.length) addNode(xValues[count], yValues[count]);
     }
+
     LinkedTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         if (xFrom > xTo) {
             double temp = xFrom;
@@ -65,19 +66,29 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
     }
 
     @Override
-    public int getCount() {return count;}
+    public int getCount() {
+        return count;
+    }
 
     @Override
-    public double leftBound() {return head.x;}
+    public double leftBound() {
+        return head.x;
+    }
 
     @Override
-    public double rightBound() {return head.prev.x;}
+    public double rightBound() {
+        return head.prev.x;
+    }
 
     @Override
-    public double getX(int index) { return getNode(index).x; }
+    public double getX(int index) {
+        return getNode(index).x;
+    }
 
     @Override
-    public double getY(int index) {return getNode(index).y; }
+    public double getY(int index) {
+        return getNode(index).y;
+    }
 
     @Override
     public void setY(int index, double value) {
@@ -107,7 +118,7 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
         double y0 = getY(0);
         double y1 = getY(1);
 
-        return y0 + ((y1 - y0) / (x1 - x0)) * (x - x0);
+        return y0 + (y1 - y0) * (x - x0) / (x1 - x0);
     }
 
     protected double extrapolateRight(double x) {
@@ -136,7 +147,34 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
 
     @Override
     public void insert(double x, double y) {
-        return;
+        if (count == 0) {
+            addNode(x, y);
+        } else {
+            int index = floorIndexOfX(x);
+            if (getX(index) == x) {
+                setY(index, y);
+            } else {
+                if (index == 0) {
+                    Node newNode = new Node(x, y);
+                    newNode.next = head;
+                    newNode.prev = head.prev;
+                    head.prev = newNode;
+                    head.prev.next = newNode;
+
+                    count++;
+                    head = newNode;
+                } else {
+                    Node oldNode = getNode(index);
+                    Node newNode = new Node(x, y);
+                    newNode.next = oldNode;
+                    newNode.prev = oldNode.prev;
+                    oldNode.prev = newNode;
+                    oldNode.prev.next = newNode;
+
+                    count++;
+                }
+            }
+        }
     }
 
     @Override
@@ -172,7 +210,10 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
             for (int i = 0; i < count - index; i++) {
                 temp = temp.prev;
             }
+            return temp;
         }
+
+        while (--index > 0) temp = temp.next;
         return temp;
     }
 
