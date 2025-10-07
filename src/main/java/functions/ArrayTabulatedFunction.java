@@ -170,5 +170,21 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     @Override
     public void remove(int index) {
 
+        double[] newX = new double[count - 1];
+        double[] newY = new double[count - 1];
+        if (index != 0) {
+            System.arraycopy(xValues, 0, newX, 0, index );
+            System.arraycopy(yValues, 0, newY, 0, index );
+        }
+
+        if (count != index + 1) {
+
+            System.arraycopy(xValues, index + 1, newX, index + 1, count - index - 1);
+            System.arraycopy(yValues, index + 1, newY, index + 1, count - index - 1);
+        }
+
+        xValues = newX;
+        yValues = newY;
+        count--;
     }
 }
