@@ -7,6 +7,14 @@ import static org.junit.jupiter.api.Assertions.*;
 class ArrayTabulatedFunctionTest {
 
     @Test
+    void apply(){
+        MathFunction sqr = new SqrFunction();
+        ArrayTabulatedFunction function = new ArrayTabulatedFunction(sqr, 1, 10, 10);
+        assertEquals(72.5, function.apply(8.5));
+        assertEquals(119, function.apply(11));
+    }
+
+    @Test
     void insert() {
         MathFunction sqr = new SqrFunction();
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(sqr, 1, 10, 10);
