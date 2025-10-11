@@ -83,7 +83,7 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
 
-        double[] arrX = {1, 1.5, 44, 35, 46.001};
+        double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(arrX, arrY);
 
@@ -96,7 +96,7 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
 
-        double[] arrX = {1, 1.5, 44, 35, 46.001};
+        double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(arrX, arrY);
 
@@ -109,7 +109,7 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
 
-        double[] arrX = {1, 1.5, 44, 35, 46.001};
+        double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(arrX, arrY);
 
@@ -122,12 +122,12 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
 
-        double[] arrX = {1, 1.5, 44, 35, 46.001};
+        double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(arrX, arrY);
 
         assertEquals(7, function.getX(6));
-        assertEquals(44, function2.getX(2));
+        assertEquals(34, function2.getX(2));
 
         assertEquals(100, function.getY(9));
         assertEquals(1, function.getY(0));
