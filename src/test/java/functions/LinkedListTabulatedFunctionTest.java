@@ -23,11 +23,6 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
         assertEquals(2.5, function.extrapolateLeft(1.5));
-
-        double[] x1 = {1};
-        double[] y1 = {10};
-        LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(x1, y1);
-        assertEquals(10, function2.extrapolateLeft(12));
     }
 
     @Test
@@ -35,11 +30,6 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
         assertEquals(90.5, function.extrapolateRight(9.5));
-
-        double[] x1 = {1};
-        double[] y1 = {10};
-        LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(x1, y1);
-        assertEquals(10, function2.extrapolateRight(12));
     }
 
     @Test
@@ -47,11 +37,6 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
         assertEquals(72.5, function.interpolate(8.5, function.floorIndexOfX(8.5)));
-
-        double[] x1 = {1};
-        double[] y1 = {10};
-        LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(x1, y1);
-        assertEquals(10, function2.interpolate(12, 10));
     }
 
     @Test
@@ -70,7 +55,6 @@ class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction f = new LinkedListTabulatedFunction(xVal, yVal);
 
         assertEquals(1, f.floorIndexOfX(4.5));
-        assertEquals(0, f.floorIndexOfX(2));
         assertEquals(3, f.floorIndexOfX(1000));
     }
 
@@ -162,6 +146,5 @@ class LinkedListTabulatedFunctionTest {
 
         function.setY(4, 23);
         assertEquals(23, function.getY(4));
-
     }
 }

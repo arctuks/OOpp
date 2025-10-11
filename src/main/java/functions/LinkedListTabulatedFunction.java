@@ -1,7 +1,7 @@
 package functions;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
-     static class Node {
+    static class Node {
         public Node next;
         public Node prev;
         public double x;
@@ -19,11 +19,16 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     protected int count = 0; // количество строк в таблице
     private Node head;
 
-    LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
-        while (count < xValues.length) addNode(xValues[count], yValues[count]);
+    public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+        int len = xValues.length;
+        if (len < 2) throw new IllegalArgumentException("The length lower than minimum");
+
+        while (count < len) addNode(xValues[count], yValues[count]);
     }
 
     LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        if (count < 2) throw new IllegalArgumentException("The length lower than minimum");
+
         if (xFrom > xTo) {
             double temp = xFrom;
             xFrom = xTo;
@@ -50,6 +55,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public int indexOfX(double x) {
+        if (x < leftBound() || x > rightBound()) throw new IllegalArgumentException("Not in range of acceptable values");
         if (head.x == x) return 0;
         Node temp = head.next;
         int index = 1;
@@ -95,23 +101,27 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public double getX(int index) {
+        if (index < 0 || index >= count) throw new IllegalArgumentException("Not in range of acceptable values");
         return getNode(index).x;
     }
 
     @Override
     public double getY(int index) {
+        if (index < 0 || index >= count) throw new IllegalArgumentException("Not in range of acceptable values");
         return getNode(index).y;
     }
 
     @Override
     public void setY(int index, double value) {
+        if (index < 0 || index >= count) throw new IllegalArgumentException("Not in range of acceptable values");
         getNode(index).y = value;
     }
 
 
     protected int floorIndexOfX(double x) {
-        if (x < head.x) return 0;
-        if (indexOfX(x) != -1) return indexOfX(x);
+        if (x < leftBound()) throw new IllegalArgumentException();
+
+        if (x <= rightBound() && indexOfX(x) != -1) return indexOfX(x);
 
         Node temp = head;
         int index = -1;
@@ -124,9 +134,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
 
     protected double extrapolateLeft(double x) {
-        if (count == 1) {
-            return getY(0);
-        }
         double x0 = getX(0);
         double x1 = getX(1);
         double y0 = getY(0);
@@ -136,8 +143,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     protected double extrapolateRight(double x) {
-        if (count == 1) return getY(0);
-
         double x0 = getX(count - 2);
         double x1 = getX(count - 1);
         double y0 = getY(count - 2);
@@ -147,10 +152,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     protected double interpolate(double x, int floorIndex) {
-        if (count == 1) {
-            return getY(0);
-        }
-
         double x0 = getX(floorIndex);
         double x1 = getX(floorIndex + 1);
         double y0 = getY(floorIndex);
@@ -193,6 +194,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public void remove(int index) {
+        if (index < 0 || index >= count) throw new IllegalArgumentException("Not in range of acceptable values");
+
         if (count == 1) {
             head = null;
             count--;
@@ -213,6 +216,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     private Node getNode(int index) {
+        if (index < 0 || index >= count) throw new IllegalArgumentException("Not in range of acceptable values");
+
         Node temp = head;
         for (int i = 0; i < index; i++) {
             temp = temp.next;

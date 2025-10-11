@@ -7,13 +7,17 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     private double[] yValues;
     private int count;
 
-    ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+    public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
         count = xValues.length;
+        if (count < 2) throw new IllegalArgumentException("The length lower than minimum");
+
         this.xValues = Arrays.copyOf(xValues, count);
         this.yValues = Arrays.copyOf(yValues, count);
     }
 
     ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        if (count < 2) throw new IllegalArgumentException("The length lower than minimum");
+
         this.xValues = new double[count];
         this.yValues = new double[count];
         this.count = count;
@@ -40,7 +44,6 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
                 yValues[i] = source.apply(xFrom + i * step);
             }
         }
-
     }
 
     public int getCount() {
@@ -48,14 +51,17 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public double getX(int indexX) {
+        if (indexX < 0 || indexX >= count) throw new IllegalArgumentException("Not in range of acceptable values");
         return xValues[indexX];
     }
 
     public double getY(int indexY) {
+        if (indexY < 0 || indexY >= count) throw new IllegalArgumentException("Not in range of acceptable values");
         return yValues[indexY];
     }
 
     public void setY(int index, double value) {
+        if (index < 0 || index >= count) throw new IllegalArgumentException("Not in range of acceptable values");
         this.yValues[index] = value;
     }
 
@@ -68,6 +74,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public int indexOfX(double x) {
+        if (x < leftBound() || x > rightBound()) throw new IllegalArgumentException("Not in range of acceptable values");
         for (int i = 0; i < count; i++) {
             if (x == xValues[i]) {
                 return i;
@@ -87,7 +94,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     public int floorIndexOfX(double x) {
         if (x <= xValues[0]) {
-            return 0;
+            throw new IllegalArgumentException();
         }
         if (x >= xValues[count - 1]) {
             return count;
@@ -105,8 +112,6 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     protected double extrapolateLeft(double x) {
-        if (count == 1) return getY(0);
-
         double x0 = getX(0);
         double x1 = getX(1);
         double y0 = getY(0);
@@ -115,10 +120,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         return y0 + ((y1 - y0) / (x1 - x0)) * (x - x0);
     }
 
-
     protected double extrapolateRight(double x) {
-        if (count == 1) return getY(0);
-
         double x0 = getX(count - 2);
         double x1 = getX(count - 1);
         double y0 = getY(count - 2);
@@ -128,10 +130,6 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     protected double interpolate(double x, int floorIndex) {
-        if (count == 1) {
-            return getY(0);
-        }
-
         double x0 = getX(floorIndex);
         double x1 = getX(floorIndex + 1);
         double y0 = getY(floorIndex);
@@ -175,16 +173,16 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public void remove(int index) {
+        if (index < 0 || index >= count) throw new IllegalArgumentException("Not in range of acceptable values");
 
         double[] newX = new double[count - 1];
         double[] newY = new double[count - 1];
         if (index != 0) {
-            System.arraycopy(xValues, 0, newX, 0, index );
-            System.arraycopy(yValues, 0, newY, 0, index );
+            System.arraycopy(xValues, 0, newX, 0, index);
+            System.arraycopy(yValues, 0, newY, 0, index);
         }
 
         if (count != index + 1) {
-
             System.arraycopy(xValues, index + 1, newX, index + 1, count - index - 1);
             System.arraycopy(yValues, index + 1, newY, index + 1, count - index - 1);
         }

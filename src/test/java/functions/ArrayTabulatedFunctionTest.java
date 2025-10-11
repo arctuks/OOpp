@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ArrayTabulatedFunctionTest {
 
     @Test
-    void apply(){
+    void apply() {
         MathFunction sqr = new SqrFunction();
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(sqr, 1, 10, 10);
         assertEquals(72.5, function.apply(8.5));
@@ -32,11 +32,6 @@ class ArrayTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(sqr, 1, 10, 10);
         assertEquals(2.5, function.extrapolateLeft(1.5));
-
-        double[] x1 = {1};
-        double[] y1 = {10};
-        ArrayTabulatedFunction function2 = new ArrayTabulatedFunction(x1, y1);
-        assertEquals(10, function2.extrapolateLeft(12));
     }
 
     @Test
@@ -44,11 +39,6 @@ class ArrayTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(sqr, 1, 10, 10);
         assertEquals(90.5, function.extrapolateRight(9.5));
-
-        double[] x1 = {1};
-        double[] y1 = {10};
-        ArrayTabulatedFunction function2 = new ArrayTabulatedFunction(x1, y1);
-        assertEquals(10, function2.extrapolateRight(12));
     }
 
     @Test
@@ -56,11 +46,6 @@ class ArrayTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         ArrayTabulatedFunction function = new ArrayTabulatedFunction(sqr, 1, 10, 10);
         assertEquals(72.5, function.interpolate(8.5, function.floorIndexOfX(8.5)));
-
-        double[] x1 = {1};
-        double[] y1 = {10};
-        ArrayTabulatedFunction function2 = new ArrayTabulatedFunction(x1, y1);
-        assertEquals(10, function2.interpolate(12, 10));
     }
 
     @Test
@@ -70,7 +55,6 @@ class ArrayTabulatedFunctionTest {
         ArrayTabulatedFunction f = new ArrayTabulatedFunction(xVal, yVal);
 
         assertEquals(1, f.floorIndexOfX(4.5));
-        assertEquals(0, f.floorIndexOfX(2));
         assertEquals(3, f.floorIndexOfX(1000));
     }
 
