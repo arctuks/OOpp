@@ -26,7 +26,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         while (count < len) addNode(xValues[count], yValues[count]);
     }
 
-    LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         if (count < 2) throw new IllegalArgumentException("The length lower than minimum");
 
         if (xFrom > xTo) {
@@ -118,7 +118,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
 
-    protected int floorIndexOfX(double x) {
+    public int floorIndexOfX(double x) {
         if (x < leftBound()) throw new IllegalArgumentException();
 
         if (x <= rightBound() && indexOfX(x) != -1) return indexOfX(x);

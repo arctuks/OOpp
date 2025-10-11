@@ -15,7 +15,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         this.yValues = Arrays.copyOf(yValues, count);
     }
 
-    ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    public ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         if (count < 2) throw new IllegalArgumentException("The length lower than minimum");
 
         this.xValues = new double[count];
