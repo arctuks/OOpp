@@ -79,7 +79,8 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public int indexOfX(double x) {
-        if (x < leftBound() || x > rightBound()) throw new IllegalArgumentException("Not in range of acceptable values");
+        if (x < leftBound() || x > rightBound())
+            throw new IllegalArgumentException("Not in range of acceptable values");
         for (int i = 0; i < count; i++) {
             if (x == xValues[i]) {
                 return i;
@@ -135,13 +136,14 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     protected double interpolate(double x, int floorIndex) {
-        if (floorIndex == count - 1){
+        if (floorIndex == count - 1) {
             throw new IllegalArgumentException("out of range");
         }
         double x0 = getX(floorIndex);
         double x1 = getX(floorIndex + 1);
-        if (x < x0 || x > x1){
-            throw new InterpolationException();}
+        if (x < x0 || x > x1) {
+            throw new InterpolationException();
+        }
         double y0 = getY(floorIndex);
         double y1 = getY(floorIndex + 1);
 

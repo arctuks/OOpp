@@ -20,7 +20,7 @@ class MathFunctionTest {
         assertEquals(16, f1.apply(2));
 
         MathFunction f2 = sin.andThen(xSqr);
-        assertEquals(0.25, f2.apply(Math.PI /4));
+        assertEquals(0.5, f2.apply(Math.PI / 4), 1e-5);
 
     }
 }

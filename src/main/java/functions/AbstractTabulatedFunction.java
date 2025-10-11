@@ -37,11 +37,12 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
         return interpolate(x, index);
     }
 
-    public static void checkLengthIsTheSame(double[] xValues, double[] yValues){
-        if (xValues.length != yValues.length){
+    public static void checkLengthIsTheSame(double[] xValues, double[] yValues) {
+        if (xValues.length != yValues.length) {
             throw new DifferentLengthOfArraysException();
         }
     }
+
     public static void checkSorted(double[] xValues) {
         for (int i = 0; i < xValues.length - 1; i++) {
             if (xValues[i] >= xValues[i + 1]) {

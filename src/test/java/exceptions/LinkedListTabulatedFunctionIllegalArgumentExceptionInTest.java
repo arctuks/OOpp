@@ -13,7 +13,7 @@ public class LinkedListTabulatedFunctionIllegalArgumentExceptionInTest {
 
     @Test
     void constructorOfArrayTabulatedFunction() {
-        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction( new double[]{1}, new double[]{2}));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new double[]{1}, new double[]{2}));
         assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(new SqrFunction(), 1, 1, 1));
     }
 

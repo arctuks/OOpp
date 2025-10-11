@@ -12,11 +12,11 @@ public class RectangularIntegration {
         B = b;
     }
 
-    double apply (int n){
+    double apply(int n) {
         double sum = 0;
-        double length = (B - A)/n;
-        for(int i = 1; i <= n; i++){
-            sum += length * func.apply(A + i*length);
+        double length = (B - A) / n;
+        for (int i = 1; i <= n; i++) {
+            sum += length * func.apply(A + i * length);
         }
         return sum;
     }
@@ -36,7 +36,6 @@ public class RectangularIntegration {
     public void setB(double B) {
         this.B = B;
     }
-
 
 
 }

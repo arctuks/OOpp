@@ -29,28 +29,28 @@ class ArrayExceptionsTest {
     }
 
     @Test
-    void checkSortedInConstructorOfArrayTabulatedFunction(){
+    void checkSortedInConstructorOfArrayTabulatedFunction() {
         assertThrows(ArrayIsNotSortedException.class, () -> {
             new ArrayTabulatedFunction(xUnsorted, yLen3);
         });
     }
 
     @Test
-    void checkTheSameLengthInConstructorOfArrayTabulatedFunction(){
+    void checkTheSameLengthInConstructorOfArrayTabulatedFunction() {
         assertThrows(DifferentLengthOfArraysException.class, () -> {
             new ArrayTabulatedFunction(xSorted, yLen2);
         });
     }
 
     @Test
-    void checkSortedInConstructorOfLinkedListTabulatedFunction(){
+    void checkSortedInConstructorOfLinkedListTabulatedFunction() {
         assertThrows(ArrayIsNotSortedException.class, () -> {
             new LinkedListTabulatedFunction(xUnsorted, yLen3);
         });
     }
 
     @Test
-    void checkTheSameLengthInConstructorOfLinkedListTabulatedFunction(){
+    void checkTheSameLengthInConstructorOfLinkedListTabulatedFunction() {
         assertThrows(DifferentLengthOfArraysException.class, () -> {
             new LinkedListTabulatedFunction(xSorted, yLen2);
         });

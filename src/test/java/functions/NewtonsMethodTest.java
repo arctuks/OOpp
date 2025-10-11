@@ -13,7 +13,7 @@ class NewtonsMethodTest {
         MathFunction function = new MathFunction() {
             @Override
             public double apply(double x) {
-                return x*x*x*x - 5*x*x +4; // x⁴ + 5x² + 4, имеет 4 корня: ±2, ±1
+                return x * x * x * x - 5 * x * x + 4; // x⁴ + 5x² + 4, имеет 4 корня: ±2, ±1
             }
         };
         MathFunction solveOne = new NewtonsMethod(function);
