@@ -20,7 +20,7 @@ class CompositeTabulatedFunctionsTest {
     void linkedListTabulatedAndIdentity() {
         double[] x = {1.0, 2.0, 3.0};
         double[] y = {10.0, 20.0, 30.0};
-        LinkedTabulatedFunction f = new LinkedTabulatedFunction(x, y);
+        LinkedListTabulatedFunction f = new LinkedListTabulatedFunction(x, y);
         IdentityFunction id = new IdentityFunction();
         MathFunction h = f.andThen(id);
 
@@ -31,7 +31,7 @@ class CompositeTabulatedFunctionsTest {
     @Test
     void arrayTabulatedAndLinkedListTabulated() {
         ArrayTabulatedFunction f = new ArrayTabulatedFunction(new SqrFunction(), 0.0, 2.0, 3);
-        LinkedTabulatedFunction g = new LinkedTabulatedFunction(
+        LinkedListTabulatedFunction g = new LinkedListTabulatedFunction(
                 x -> x * 2,
                 0.0, 4.0, 3
         );

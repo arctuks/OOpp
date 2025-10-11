@@ -1,8 +1,6 @@
 package functions;
 
-import java.util.Collection;
-
-public class LinkedTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
      static class Node {
         public Node next;
         public Node prev;
@@ -21,11 +19,11 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
     protected int count = 0; // количество строк в таблице
     private Node head;
 
-    LinkedTabulatedFunction(double[] xValues, double[] yValues) {
+    LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         while (count < xValues.length) addNode(xValues[count], yValues[count]);
     }
 
-    LinkedTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         if (xFrom > xTo) {
             double temp = xFrom;
             xFrom = xTo;
