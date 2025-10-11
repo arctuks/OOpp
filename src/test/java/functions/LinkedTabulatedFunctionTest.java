@@ -5,7 +5,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedTabulatedFunctionTest {
+    @Test
+    void insert() {
+        MathFunction sqr = new SqrFunction();
+        LinkedTabulatedFunction function = new LinkedTabulatedFunction(sqr, 1, 10, 10);
 
+        function.insert(6, 40);
+        assertEquals(40, function.getY(5));
+
+        function.insert(6.5, 42.25);
+        assertEquals(42.25, function.getY(6));
+        assertEquals(100, function.getY(10));
+    }
 
     @Test
     void extrapolateLeft() {
@@ -49,7 +60,7 @@ class LinkedTabulatedFunctionTest {
         LinkedTabulatedFunction function = new LinkedTabulatedFunction(sqr, 1, 10, 10);
 
         function.remove(3);
-        assertEquals(49, function.getY(3));
+        assertEquals(25, function.getY(3));
     }
 
     @Test
@@ -131,12 +142,17 @@ class LinkedTabulatedFunctionTest {
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedTabulatedFunction function2 = new LinkedTabulatedFunction(arrX, arrY);
 
+        assertEquals(7, function.getX(6));
+        assertEquals(44, function2.getX(2));
+
         assertEquals(100, function.getY(9));
         assertEquals(1, function.getY(0));
 
         assertEquals(10, function.getX(9));
         assertEquals(1, function.getX(0));
 
+        assertEquals(49, function.getY(6));
+        assertEquals(12, function2.getY(2));
     }
 
     @Test

@@ -141,30 +141,36 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     public void insert(double x, double y) {
-        int index = indexOfX(x);
+        if (count == 0) {
+            count++;
+            double[] newX = {x};
+            double[] newY = {y};
 
-        if (index != -1) {
-            setY(index, y);
-            return;
+            xValues = newX;
+            yValues = newY;
+        } else {
+            int index = floorIndexOfX(x);
+            if (getX(index) == x) {
+                setY(index, y);
+            } else {
+                index++;
+                double[] newX = new double[count + 1];
+                double[] newY = new double[count + 1];
+
+                System.arraycopy(xValues, 0, newX, 0, index);
+                System.arraycopy(yValues, 0, newY, 0, index);
+
+                newX[index] = x;
+                newY[index] = y;
+
+                System.arraycopy(xValues, index, newX, index + 1, count - index);
+                System.arraycopy(yValues, index, newY, index + 1, count - index);
+
+                xValues = newX;
+                yValues = newY;
+                count++;
+            }
         }
-
-        index = floorIndexOfX(x) + 1;
-
-        double[] newX = new double[count + 1];
-        double[] newY = new double[count + 1];
-
-        System.arraycopy(xValues, 0, newX, 0, index);
-        System.arraycopy(yValues, 0, newY, 0, index);
-
-        newX[index] = x;
-        newY[index] = y;
-
-        System.arraycopy(xValues, index, newX, index + 1, count - index);
-        System.arraycopy(yValues, index, newY, index + 1, count - index);
-
-        xValues = newX;
-        yValues = newY;
-        count++;
     }
 
     @Override

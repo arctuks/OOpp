@@ -98,6 +98,7 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
 
     protected int floorIndexOfX(double x) {
         if (x < head.x) return 0;
+        if (indexOfX(x) != -1) return indexOfX(x);
 
         Node temp = head;
         int index = -1;
@@ -166,10 +167,10 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
                 } else {
                     Node oldNode = getNode(index);
                     Node newNode = new Node(x, y);
-                    newNode.next = oldNode;
-                    newNode.prev = oldNode.prev;
-                    oldNode.prev = newNode;
-                    oldNode.prev.next = newNode;
+                    newNode.next = oldNode.next;
+                    newNode.prev = oldNode;
+                    oldNode.next.prev = newNode;
+                    oldNode.next = newNode;
 
                     count++;
                 }
@@ -199,21 +200,10 @@ public class LinkedTabulatedFunction extends AbstractTabulatedFunction implement
     }
 
     private Node getNode(int index) {
-        Node temp;
-        if (index <= count / 2) {
-            temp = head;
-            for (int i = 0; i < index; i++) {
-                temp = temp.next;
-            }
-        } else {
-            temp = head;
-            for (int i = 0; i < count - index; i++) {
-                temp = temp.prev;
-            }
-            return temp;
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
         }
-
-        while (--index > 0) temp = temp.next;
         return temp;
     }
 
