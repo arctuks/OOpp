@@ -143,7 +143,6 @@ class LinkedListTabulatedFunctionTest {
     void setY() {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
-
         function.setY(4, 23);
         assertEquals(23, function.getY(4));
     }

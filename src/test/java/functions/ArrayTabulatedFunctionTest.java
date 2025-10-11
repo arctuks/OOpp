@@ -112,7 +112,6 @@ class ArrayTabulatedFunctionTest {
         double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         ArrayTabulatedFunction function2 = new ArrayTabulatedFunction(arrX, arrY);
-
         assertEquals(10, function.rightBound());
         assertEquals(46.001, function2.rightBound());
     }
