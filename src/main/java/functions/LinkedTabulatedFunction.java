@@ -3,6 +3,21 @@ package functions;
 import java.util.Collection;
 
 public class LinkedTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
+     static class Node {
+        public Node next;
+        public Node prev;
+        public double x;
+        public double y;
+
+        public Node() {
+        }
+
+        public Node(double x, double y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
     protected int count = 0; // количество строк в таблице
     private Node head;
 
