@@ -173,8 +173,6 @@ class LinkedListTabulatedFunctionTest {
     void iteratorInForEach() {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
-
-        Iterator<Point> iterator = function.iterator();
         int position = 0;
 
         for (Point point : function) {
