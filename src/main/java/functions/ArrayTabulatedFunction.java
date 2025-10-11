@@ -3,6 +3,7 @@ package functions;
 import exceptions.InterpolationException;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     private double[] xValues;
@@ -199,5 +200,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         xValues = newX;
         yValues = newY;
         count--;
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 }

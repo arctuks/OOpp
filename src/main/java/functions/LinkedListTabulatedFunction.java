@@ -2,6 +2,8 @@ package functions;
 
 import exceptions.InterpolationException;
 
+import java.util.Iterator;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     static class Node {
         public Node next;
@@ -259,5 +261,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         newNode.y = y;
 
         count++;
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 }
