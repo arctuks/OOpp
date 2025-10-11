@@ -1,6 +1,8 @@
 package functions;
 
-public interface TabulatedFunction extends MathFunction {
+import java.util.Iterator;
+
+public interface TabulatedFunction extends MathFunction, Iterable<Point> {
     int getCount();                       // Получение количества табулированных значений
 
     double getX(int index);               // Получение значения аргумента x по номеру индекса

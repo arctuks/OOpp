@@ -2,6 +2,9 @@ package functions;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class LinkedListTabulatedFunctionTest {
@@ -83,7 +86,7 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
 
-        double[] arrX = {1, 1.5, 44, 35, 46.001};
+        double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(arrX, arrY);
 
@@ -96,7 +99,7 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
 
-        double[] arrX = {1, 1.5, 44, 35, 46.001};
+        double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(arrX, arrY);
 
@@ -109,7 +112,7 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
 
-        double[] arrX = {1, 1.5, 44, 35, 46.001};
+        double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(arrX, arrY);
 
@@ -122,12 +125,12 @@ class LinkedListTabulatedFunctionTest {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
 
-        double[] arrX = {1, 1.5, 44, 35, 46.001};
+        double[] arrX = {1, 1.5, 34, 35, 46.001};
         double[] arrY = {10, 11, 12, 36, 47.034};
         LinkedListTabulatedFunction function2 = new LinkedListTabulatedFunction(arrX, arrY);
 
         assertEquals(7, function.getX(6));
-        assertEquals(44, function2.getX(2));
+        assertEquals(34, function2.getX(2));
 
         assertEquals(100, function.getY(9));
         assertEquals(1, function.getY(0));
@@ -143,8 +146,54 @@ class LinkedListTabulatedFunctionTest {
     void setY() {
         MathFunction sqr = new SqrFunction();
         LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
-
         function.setY(4, 23);
         assertEquals(23, function.getY(4));
+    }
+
+    @Test
+    void iteratorInWhile() {
+        MathFunction sqr = new SqrFunction();
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
+
+        Iterator<Point> iterator = function.iterator();
+        Point point;
+        int position = 0;
+
+        while (iterator.hasNext()) {
+            point = iterator.next();
+            assertEquals(function.getY(position), point.y);
+            assertEquals(function.getX(position), point.x);
+            position++;
+        }
+
+        assertEquals(10, position);
+    }
+
+    @Test
+    void iteratorInForEach() {
+        MathFunction sqr = new SqrFunction();
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(sqr, 1, 10, 10);
+        int position = 0;
+
+        for (Point point : function) {
+            assertEquals(function.getY(position), point.y);
+            assertEquals(function.getX(position), point.x);
+            position++;
+        }
+
+        assertEquals(10, position);
+    }
+
+    @Test
+    void iteratorException() {
+        LinkedListTabulatedFunction function = new LinkedListTabulatedFunction(new double[]{1, 2}, new double[]{10, 11.2});
+        Iterator<Point> iterator = function.iterator();
+
+        while (iterator.hasNext()) {
+            iterator.next();
+        }
+
+        assertThrows(NoSuchElementException.class, iterator::next);
+        assertFalse(iterator.hasNext());
     }
 }

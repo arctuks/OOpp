@@ -1,6 +1,9 @@
 package functions;
 
+import exceptions.InterpolationException;
+
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     private double[] xValues;
@@ -8,8 +11,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     private int count;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+        checkLengthIsTheSame(xValues, yValues);
         count = xValues.length;
         if (count < 2) throw new IllegalArgumentException("The length lower than minimum");
+        checkSorted(xValues);
 
         this.xValues = Arrays.copyOf(xValues, count);
         this.yValues = Arrays.copyOf(yValues, count);
@@ -130,8 +135,13 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     }
 
     protected double interpolate(double x, int floorIndex) {
+        if (floorIndex == count - 1){
+            throw new IllegalArgumentException("out of range");
+        }
         double x0 = getX(floorIndex);
         double x1 = getX(floorIndex + 1);
+        if (x < x0 || x > x1){
+            throw new InterpolationException();}
         double y0 = getY(floorIndex);
         double y1 = getY(floorIndex + 1);
 
@@ -190,5 +200,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         xValues = newX;
         yValues = newY;
         count--;
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 }

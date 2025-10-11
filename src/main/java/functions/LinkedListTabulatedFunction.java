@@ -1,5 +1,10 @@
 package functions;
 
+import exceptions.InterpolationException;
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     static class Node {
         public Node next;
@@ -20,8 +25,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     private Node head;
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+        checkLengthIsTheSame(xValues, yValues);
         int len = xValues.length;
         if (len < 2) throw new IllegalArgumentException("The length lower than minimum");
+        checkSorted(xValues);
 
         while (count < len) addNode(xValues[count], yValues[count]);
     }
@@ -55,7 +62,8 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public int indexOfX(double x) {
-        if (x < leftBound() || x > rightBound()) throw new IllegalArgumentException("Not in range of acceptable values");
+        if (x < leftBound() || x > rightBound())
+            throw new IllegalArgumentException("Not in range of acceptable values");
         if (head.x == x) return 0;
         Node temp = head.next;
         int index = 1;
@@ -152,8 +160,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     protected double interpolate(double x, int floorIndex) {
+        if (floorIndex == count - 1) {
+            throw new IllegalArgumentException("out of range");
+        }
         double x0 = getX(floorIndex);
         double x1 = getX(floorIndex + 1);
+        if (x < x0 || x > x1) {
+            throw new InterpolationException();
+        }
         double y0 = getY(floorIndex);
         double y1 = getY(floorIndex + 1);
 
@@ -250,5 +264,33 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         newNode.y = y;
 
         count++;
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        return new Iterator<>() {
+            private Node node = head;
+
+            @Override
+            public boolean hasNext() {
+                return node != null;
+            }
+
+            @Override
+            public Point next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+
+                Point point = new Point(node.x, node.y);
+                if (node.next == head) {
+                    node = null;
+                } else {
+                    node = node.next;
+                }
+
+                return point;
+            }
+        };
     }
 }
