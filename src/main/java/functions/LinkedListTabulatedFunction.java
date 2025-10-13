@@ -2,11 +2,15 @@ package functions;
 
 import exceptions.InterpolationException;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
-    static class Node {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable, Serializable {
+    private static final long serialVersionUID = 1648779174667142828L;
+
+    static class Node implements Serializable {
+        private static final long serialVersionUID = 7023737607651512492L;
         public Node next;
         public Node prev;
         public double x;
