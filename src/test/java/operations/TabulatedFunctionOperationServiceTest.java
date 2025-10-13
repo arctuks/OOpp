@@ -1,4 +1,4 @@
-package operatinos;
+package operations;
 
 import functions.ArrayTabulatedFunction;
 import functions.LinkedListTabulatedFunction;

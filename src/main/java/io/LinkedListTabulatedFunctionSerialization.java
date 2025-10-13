@@ -3,7 +3,7 @@ package io;
 import functions.LinkedListTabulatedFunction;
 import functions.TabulatedFunction;
 import functions.factory.LinkedListTabulatedFunctionFactory;
-import operatinos.TabulatedDifferentialOperator;
+import operations.TabulatedDifferentialOperator;
 
 import java.io.*;
 

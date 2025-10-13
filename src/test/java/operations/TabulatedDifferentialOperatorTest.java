@@ -1,4 +1,4 @@
-package operatinos;
+package operations;
 
 import functions.factory.TabulatedFunctionFactory;
 import functions.TabulatedFunction;
