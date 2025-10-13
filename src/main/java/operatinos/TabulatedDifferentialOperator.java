@@ -10,11 +10,11 @@ import java.awt.*;
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
     private TabulatedFunctionFactory factory;
 
-    TabulatedDifferentialOperator() {
+    public TabulatedDifferentialOperator() {
         this.factory = new ArrayTabulatedFunctionFactory();
     }
 
-    TabulatedDifferentialOperator(TabulatedFunctionFactory f) {
+    public TabulatedDifferentialOperator(TabulatedFunctionFactory f) {
         this.factory = f;
     }
 
