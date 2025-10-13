@@ -3,6 +3,7 @@ package io;
 import functions.ArrayTabulatedFunction;
 import functions.LinkedListTabulatedFunction;
 import functions.TabulatedFunction;
+
 import java.io.*;
 
 public class TabulatedFunctionFileOutputStream {

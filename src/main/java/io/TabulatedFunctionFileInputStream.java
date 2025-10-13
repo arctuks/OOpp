@@ -4,6 +4,7 @@ import functions.TabulatedFunction;
 import functions.factory.ArrayTabulatedFunctionFactory;
 import functions.factory.LinkedListTabulatedFunctionFactory;
 import operatinos.TabulatedDifferentialOperator;
+
 import java.io.*;
 
 public class TabulatedFunctionFileInputStream {

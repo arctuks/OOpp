@@ -3,6 +3,7 @@ package io;
 import functions.TabulatedFunction;
 import functions.Point;
 import functions.factory.TabulatedFunctionFactory;
+
 import java.io.*;
 
 public final class FunctionsIO {
