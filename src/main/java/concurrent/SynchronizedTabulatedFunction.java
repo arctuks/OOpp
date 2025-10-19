@@ -94,6 +94,7 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
         }
         return result;
     }
+
     @Override
     public Iterator<Point> iterator() {
         Point[] points = TabulatedFunctionOperationService.asPoints(function);
