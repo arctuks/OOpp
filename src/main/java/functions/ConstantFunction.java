@@ -3,7 +3,7 @@ package functions;
 public class ConstantFunction implements MathFunction {
     private final double pole;
 
-    ConstantFunction(double pole) {
+    public ConstantFunction(double pole) {
         this.pole = pole;
     }
 
