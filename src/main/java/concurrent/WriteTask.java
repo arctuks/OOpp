@@ -3,8 +3,8 @@ package concurrent;
 import functions.TabulatedFunction;
 
 public class WriteTask implements Runnable {
-    TabulatedFunction function;
-    double value;
+    private TabulatedFunction function;
+    private double value;
 
     WriteTask(TabulatedFunction function, double value) {
         this.function = function;
