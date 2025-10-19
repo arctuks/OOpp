@@ -12,5 +12,12 @@ public class ReadWriteTaskExecutor {
 
         threadRead.start();
         threadWrite.start();
+
+        try {
+            threadRead.join();
+            threadWrite.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace(System.err);
+        }
     }
 }
