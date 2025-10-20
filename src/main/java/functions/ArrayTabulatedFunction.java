@@ -4,6 +4,7 @@ import exceptions.InterpolationException;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
     private double[] xValues;
@@ -206,6 +207,24 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
+        return new Iterator<Point>() {
+            private int i = 0; // индекс
+
+            @Override
+            public boolean hasNext() {
+                return i < getCount();
+            }
+
+            @Override
+            public Point next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException("No more elements available.");
+                }
+                // Создаем объект Point на основе xValues и yValues
+                Point point = new Point(xValues[i], yValues[i]);
+                i++; // увеличиваем индекс
+                return point;
+            }
+        };
     }
 }
