@@ -7,7 +7,6 @@ import functions.factory.ArrayTabulatedFunctionFactory;
 import functions.factory.TabulatedFunctionFactory;
 
 
-
 public class TabulatedFunctionOperationService {
     public static Point[] asPoints(TabulatedFunction tabulatedFunction) {
         // Инициализация массива для хранения точек
