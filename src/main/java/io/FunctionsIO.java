@@ -1,5 +1,6 @@
 package io;
 
+import functions.LinkedListTabulatedFunction;
 import functions.TabulatedFunction;
 import functions.Point;
 import functions.factory.TabulatedFunctionFactory;
@@ -38,5 +39,16 @@ public final class FunctionsIO {
     public static TabulatedFunction deserialize(BufferedInputStream stream) throws IOException, ClassNotFoundException {
         ObjectInputStream objectInputStream = new ObjectInputStream(stream);
         return (TabulatedFunction) objectInputStream.readObject();
+    }
+
+    public static void serialize(BufferedOutputStream stream, TabulatedFunction function) throws IOException {
+        // Оборачиваем поток в ObjectOutputStream для записи объекта
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(stream);
+
+        // Записываем объект
+        objectOutputStream.writeObject(function);
+
+        // Пробрасываем данные из буфера
+        objectOutputStream.flush();
     }
 }
