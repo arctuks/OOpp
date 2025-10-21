@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class InconsistentFunctionsExceptionTest {
 
-    // Тест конструктора без параметров
     @Test
     void testInconsistentFunctionsExceptionWithoutMessage() {
         InconsistentFunctionsException exception = assertThrows(
@@ -15,7 +14,7 @@ class InconsistentFunctionsExceptionTest {
         assertNull(exception.getMessage(), "Сообщение должно быть null для конструктора без параметров.");
     }
 
-    // Тест конструктора с сообщением
+
     @Test
     void testInconsistentFunctionsExceptionWithMessage() {
         String expectedMessage = "Functions are inconsistent!";

@@ -9,50 +9,43 @@ import functions.TabulatedFunction;
 
 public class TabulatedFunctionOperationService {
     public static Point[] asPoints(TabulatedFunction tabulatedFunction) {
-        // Инициализация массива для хранения точек
+
         Point[] points = new Point[tabulatedFunction.getCount()];
 
-        // Индекс для записи точек в массив
         int i = 0;
 
-        // Цикл for-each для итерирования по табулированной функции
+
         for (Point point : tabulatedFunction) {
             points[i] = point;
-            i++; // Инкремент индекса для следующей точки
+            i++;
         }
 
         return points;
     }
     private TabulatedFunctionFactory factory;
 
-    // Конструктор с фабрикой
     public TabulatedFunctionOperationService(TabulatedFunctionFactory factory) {
         this.factory = factory;
     }
 
-    // Конструктор по умолчанию, использующий ArrayTabulatedFunctionFactory
     public TabulatedFunctionOperationService() {
         this.factory = new ArrayTabulatedFunctionFactory();
     }
 
-    // Геттер для фабрики
     public TabulatedFunctionFactory getFactory() {
         return factory;
     }
 
-    // Сеттер для фабрики
     public void setFactory(TabulatedFunctionFactory factory) {
         this.factory = factory;
     }
 
-    // Вложенный интерфейс для бинарных операций
     private interface BiOperation {
         double apply(double u, double v);
     }
 
-    // Метод для выполнения бинарной операции над двумя функциями
     private TabulatedFunction doOperation(TabulatedFunction a, TabulatedFunction b, BiOperation operation) {
-        // Проверка на совместимость функций
+
         if (a.getCount() != b.getCount()) {
             throw new InconsistentFunctionsException("У функций разное количество точек");
         }
@@ -68,10 +61,10 @@ public class TabulatedFunctionOperationService {
                 throw new InconsistentFunctionsException("У функций разные значения X");
             }
             xValues[i] = pointsA[i].x;
-            yValues[i] = operation.apply(pointsA[i].y, pointsB[i].y); // Применение операции
+            yValues[i] = operation.apply(pointsA[i].y, pointsB[i].y);
         }
 
-        return factory.create(xValues, yValues); // Создание новой функции с использованием фабрики
+        return factory.create(xValues, yValues);
     }
 
     // Метод для сложения двух функций

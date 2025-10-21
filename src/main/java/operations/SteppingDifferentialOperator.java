@@ -23,7 +23,6 @@ public abstract class SteppingDifferentialOperator implements DifferentialOperat
         this.step = step;
     }
 
-    // Абстрактный метод derive() для реализации в подклассах
     @Override
     public abstract MathFunction derive(MathFunction function);
 

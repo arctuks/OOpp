@@ -1,6 +1,5 @@
 package io;
 
-import functions.LinkedListTabulatedFunction;
 import functions.TabulatedFunction;
 import functions.Point;
 import functions.factory.TabulatedFunctionFactory;
@@ -8,6 +7,24 @@ import functions.factory.TabulatedFunctionFactory;
 import java.io.*;
 
 public final class FunctionsIO {
+
+    private FunctionsIO() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static void writeTabulatedFunction(BufferedWriter writer, TabulatedFunction function) throws IOException {
+        PrintWriter printWriter = new PrintWriter(writer);
+
+        printWriter.println(function.getCount());
+
+        for (Point point : function) {
+            printWriter.printf("%f %f%n", point.x, point.y);
+        }
+
+
+        printWriter.flush();
+    }
+
     public static void writeTabulatedFunction(BufferedOutputStream outputStream, TabulatedFunction function) throws IOException {
         DataOutputStream os = new DataOutputStream(outputStream);
         os.writeInt(function.getCount());
