@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class SynchronizedTabulatedFunction implements TabulatedFunction {
-    private TabulatedFunction function;
+    private final TabulatedFunction function;
     private final Object lock;
 
     public SynchronizedTabulatedFunction(TabulatedFunction function) {
@@ -116,5 +116,16 @@ public class SynchronizedTabulatedFunction implements TabulatedFunction {
                 return points[index++];
             }
         };
+    }
+
+
+    public interface Operation<T> {
+        T apply(SynchronizedTabulatedFunction function);
+    }
+
+    public <T> T doSynchronously(Operation<? extends T> operation) {
+        synchronized (function) {
+            return operation.apply(this);
+        }
     }
 }

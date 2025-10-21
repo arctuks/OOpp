@@ -1,5 +1,8 @@
 package operations;
 
+import concurrent.SynchronizedTabulatedFunction;
+import functions.LinkedListTabulatedFunction;
+import functions.UnitFunction;
 import functions.factory.TabulatedFunctionFactory;
 import functions.TabulatedFunction;
 import functions.factory.ArrayTabulatedFunctionFactory;
@@ -35,4 +38,33 @@ class TabulatedDifferentialOperatorTest {
             assertEquals(dy[i], derivatives.getY(i));
         }
     }
+
+    @Test
+    public void testDeriveSynchronouslyWithSynchronizedFunction() {
+
+        TabulatedFunction function = new LinkedListTabulatedFunction(new UnitFunction(), 1, 10, 10);
+
+        SynchronizedTabulatedFunction synchronizedFunction = new SynchronizedTabulatedFunction(function);
+
+        TabulatedDifferentialOperator operator = new TabulatedDifferentialOperator();
+
+        TabulatedFunction derivative = operator.deriveSynchronously(synchronizedFunction);
+
+        assertNotNull(derivative);
+        assertEquals(derivative.getCount(), 10);
+    }
+
+    @Test
+    public void testDeriveSynchronouslyWithRegularFunction() {
+
+        TabulatedFunction function = new LinkedListTabulatedFunction(new UnitFunction(), 1, 10, 10);
+
+        TabulatedDifferentialOperator operator = new TabulatedDifferentialOperator();
+
+        TabulatedFunction derivative = operator.deriveSynchronously(function);
+
+        assertNotNull(derivative);
+        assertEquals(derivative.getCount(), 10);
+    }
+
 }

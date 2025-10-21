@@ -14,6 +14,18 @@ class SynchronizedTabulatedFunctionTest {
     int count = function.getCount();
 
     @Test
+    public void testDoSynchronously() {
+        // Создаем табулированную функцию
+        TabulatedFunction function = new LinkedListTabulatedFunction(new UnitFunction(), 1, 10, 10);
+        SynchronizedTabulatedFunction synchronizedFunction = new SynchronizedTabulatedFunction(function);
+
+        // Операция получения значения y по индексу
+        double yValue = synchronizedFunction.doSynchronously(f -> f.getY(5));
+
+        assertEquals(1.0, yValue, 0.001);
+    }
+
+    @Test
     void getCount() {
         synchronizedTabulatedFunction = new SynchronizedTabulatedFunction(function);
         assertEquals(count, synchronizedTabulatedFunction.getCount());
