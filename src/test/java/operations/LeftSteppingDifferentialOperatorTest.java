@@ -31,12 +31,7 @@ class LeftSteppingDifferentialOperatorTest {
     @Test
     public void testDerivativeOfLinearFunction() {
         // Линейная функция f(x) = 2x + 1
-        MathFunction linearFunction = new MathFunction() {
-            @Override
-            public double apply(double x) {
-                return 2 * x + 1;
-            }
-        };
+        MathFunction linearFunction = x -> 2 * x + 1;
 
         // Шаг дифференцирования
         double step = 1e-5;
